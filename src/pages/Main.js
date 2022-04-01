@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import Profile from "../components/Profile";
 import VSanimation from "../components/VSanimation";
+import Stats from "../components/Stats";
 
 const Outer = styled.section`
   width: 100%;
@@ -32,6 +33,8 @@ const IconContainer = styled.div`
 const Main = ({ data, updateData }) => {
   const [isTeam, setIsTeam] = useState(false);
   // 개인전인지 팀전인지 여부
+  const [isRetire, setIsRetire] = useState(false);
+  // info/right 내 리타이어 정보들을 노출시킬 것인지 아닌지의 state
 
   return (
     <Outer>
@@ -49,6 +52,7 @@ const Main = ({ data, updateData }) => {
           setIsTeam={setIsTeam}
         />
         <VSanimation />
+        <Stats data={data} />
       </Inner>
     </Outer>
   );
