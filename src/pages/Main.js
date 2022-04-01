@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import Profile from "../components/Profile";
+import VSanimation from "../components/VSanimation";
 
 const Outer = styled.section`
   width: 100%;
@@ -47,6 +48,7 @@ const Main = ({ data, updateData }) => {
           isTeam={isTeam}
           setIsTeam={setIsTeam}
         />
+        <VSanimation />
       </Inner>
     </Outer>
   );
