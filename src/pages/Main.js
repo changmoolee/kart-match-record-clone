@@ -5,6 +5,8 @@ import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import Profile from "../components/Profile";
 import VSanimation from "../components/VSanimation";
 import Stats from "../components/Stats";
+import Taps from "../components/Tabs";
+import Info from "../components/Info";
 
 const Outer = styled.section`
   width: 100%;
@@ -53,6 +55,8 @@ const Main = ({ data, updateData }) => {
         />
         <VSanimation />
         <Stats data={data} />
+        <Taps isRetire={isRetire} setIsRetire={setIsRetire} />
+        <Info data={data} isTeam={isTeam} isRetire={isRetire} />
       </Inner>
     </Outer>
   );
