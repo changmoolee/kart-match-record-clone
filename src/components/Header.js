@@ -62,12 +62,13 @@ const Homepage = styled.span`
   cursor: pointer;
 `;
 const Container = styled.section`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
 `;
 
-const Header = ({ searchData }) => {
+const Header = ({ setNickname }) => {
   const [hovered, setHovered] = useState(null);
   const [isOthersOpen, setIsOthersOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -123,7 +124,7 @@ const Header = ({ searchData }) => {
           setHovered={setHovered}
           openDrawer={openDrawer}
           closeDrawer={closeDrawer}
-          searchData={searchData}
+          setNickname={setNickname}
         />
         {isDrawerOpen ? <Drawer hovered={hovered} /> : null}
       </Container>
