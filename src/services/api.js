@@ -15,7 +15,7 @@ export const datasApi = createApi({
       query: (nickname) => `/users/nickname/${nickname}`,
     }),
     getMatchDatas: builder.query({
-      query: (access_Id) => `/users/${access_Id}/matches?limit=50`,
+      query: (access_Id) => `/users/${access_Id}/matches?limit=100`,
     }),
     getPlayerDatas: builder.mutation({
       query: (match_Id) => ({
