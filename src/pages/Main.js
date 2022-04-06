@@ -8,7 +8,6 @@ import VSanimation from "../components/VSanimation";
 import Stats from "../components/Stats";
 import Taps from "../components/Tabs";
 import Info from "../components/Info";
-import { throttle } from "lodash";
 
 const Outer = styled.section`
   width: 100%;
@@ -63,30 +62,16 @@ const Main = ({ data, updateData }) => {
     window.scrollTo(0, 0);
   };
 
-  let prevScrollTop = 0;
-
-  // document.addEventListener("scroll", () => {
-  //   console.log({ scrollY: window.scrollY });
-  //   let nextScrollTop = window.scrollY;
-  //   if (nextScrollTop <= prevScrollTop) {
-  //     console.log("up");
-  //   } else if (nextScrollTop > prevScrollTop) {
-  //     console.log("down");
-  //   }
-  //   prevScrollTop = nextScrollTop;
-  // });
-
   document.addEventListener("mousewheel", (e) => {
-    console.log(e.deltaY);
-    const direction = e.deltaY > 0 ? "Scroll Down" : "Scroll Up";
+    // console.log(e.deltaY);
     // 방향과 현 스크롤 위치
-    if (e.deltaY < -30) {
+    if (e.deltaY <= 0) {
       setShowScrollToTop(true);
     }
-    if (parseInt(e.deltaY) < 10) {
-      setTimeout(() => setShowScrollToTop(false), 2000);
+    if (e.deltaY > 30) {
+      setShowScrollToTop(false);
     }
-    console.log(direction, window.scrollY);
+    // console.log(direction, window.scrollY);
   });
 
   return (

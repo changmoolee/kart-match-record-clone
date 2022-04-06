@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import MatchDetail from "./MatchDetail";
 import gameType from "../data/gameType.json";
+import Loading from "./Loading";
 import useInfiniteScroll from "../hooks/InfiniteScroll";
 
 const Container = styled.section`
@@ -30,13 +31,19 @@ const Right = ({ data, isTeam, isRetire }) => {
   // console.log(isExceptRetire);
 
   const matchDatas = data.matches?.[0].matches;
+  const [isLoading, setIsLoading] = useState(false);
   const [matchDatasPiece, setMatchDatas] = useState(matchDatas.slice(0, 10));
 
-  const getMoreData = () => {
+  const getMoreData = async () => {
+    setIsLoading(true);
     let num = matchDatasPiece.length;
-    setMatchDatas((matchDatasPiece) =>
-      matchDatasPiece.concat(matchDatas.slice(num, num + 10))
-    );
+    await setTimeout(() => {
+      setMatchDatas((matchDatasPiece) =>
+        matchDatasPiece.concat(matchDatas.slice(num, num + 10))
+      );
+      setIsLoading(false);
+      console.log("get more data!");
+    }, 500);
   };
   const target = useInfiniteScroll(getMoreData, matchDatasPiece);
   // 무한스크롤
@@ -86,6 +93,7 @@ const Right = ({ data, isTeam, isRetire }) => {
             isRetire={isRetire}
           />
         ))}
+        {isLoading ? <Loading /> : null}
         <LastData>
           {matchDatasPiece.filter(
             (matchData) => filteringData(matchData) !== null
