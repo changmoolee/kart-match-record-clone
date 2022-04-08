@@ -13,7 +13,7 @@ const Container = styled.section`
 const Info = ({ data, isTeam, isRetire }) => {
   return (
     <Container>
-      <Left data={data} />
+      <Left />
       <Right data={data} isTeam={isTeam} isRetire={isRetire} />
     </Container>
   );

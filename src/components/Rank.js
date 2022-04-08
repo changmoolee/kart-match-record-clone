@@ -67,7 +67,7 @@ const Rank = ({ data }) => {
     canvas.width = 300;
     canvas.height = 180;
 
-    // 표 눈금선 그리기
+    // 표 y축 눈금선 그리기
     context.strokeStyle = "black";
     context.lineWidth = 0.2;
     context.beginPath();
@@ -75,6 +75,8 @@ const Rank = ({ data }) => {
     context.lineTo(15, 160);
     context.stroke();
     context.closePath();
+
+    // 표 x축 눈금선 그리기
     for (let i = 1; i < 9; i++) {
       context.strokeStyle = "black";
       context.lineWidth = 0.2;
@@ -84,21 +86,25 @@ const Rank = ({ data }) => {
       context.stroke();
       context.closePath();
     }
+
     // 표 눈금 숫자 그리기
     for (let i = 1; i < 9; i++) {
-      context.font = "12px sans-serif";
+      context.font = "12px Noto Sans KR";
       context.fillText(i, 0, 20 * i + 5);
     }
+
     // 선 그래프 작성
+    context.strokeStyle = "#2877ff";
+    context.lineWidth = 1;
+    context.beginPath();
     for (let i = 0; i < 50; i++) {
-      context.strokeStyle = "#2877ff";
-      context.lineWidth = 1;
-      context.beginPath();
       context.moveTo(15 + (285 / 50) * i, 20 * rankDatas[i]);
       context.lineTo(15 + (285 / 50) * (i + 1), 20 * rankDatas[i + 1]);
-      context.stroke();
-      context.closePath();
     }
+    context.stroke();
+    context.closePath();
+
+    // 그래프 포인트 작성
     for (let i = 0; i < 50; i++) {
       context.fillStyle = "#2877ff";
       context.beginPath();
@@ -107,7 +113,7 @@ const Rank = ({ data }) => {
         20 * rankDatas[i],
         3,
         0,
-        Math.PI * 2,
+        (Math.PI / 180) * 360,
         true
       );
       context.fill();
