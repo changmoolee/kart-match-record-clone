@@ -9,11 +9,12 @@ import Main from "./pages/Main";
 
 const BlankMain = styled.div`
   width: 100%;
-  height: 800px;
+  height: 1000px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  left: 50;
+`;
+const BlankDesc = styled.div`
+  margin-top: 300px;
 `;
 
 function App() {
@@ -51,8 +52,10 @@ function App() {
           </>
         ) : error || matchDataError ? (
           <BlankMain>
-            <h2>에러가 발생했습니다!</h2>
-            <h2>불편을 드려 죄송합니다.</h2>
+            <BlankDesc>
+              <h2>에러가 발생했습니다!</h2>
+              <h2>불편을 드려 죄송합니다.</h2>
+            </BlankDesc>
           </BlankMain>
         ) : matchDataIsSuccess ? (
           <Routes>
@@ -64,7 +67,9 @@ function App() {
               path="/*"
               element={
                 <BlankMain>
-                  <h2>잘못된 경로입니다.</h2>
+                  <BlankDesc>
+                    <h2>잘못된 경로입니다.</h2>
+                  </BlankDesc>
                 </BlankMain>
               }
             />
@@ -72,7 +77,9 @@ function App() {
               path="/blank"
               element={
                 <BlankMain>
-                  <h2>서비스 되지 않습니다.</h2>
+                  <BlankDesc>
+                    <h2>서비스 되지 않습니다.</h2>
+                  </BlankDesc>
                 </BlankMain>
               }
             />

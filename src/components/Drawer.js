@@ -13,7 +13,7 @@ const Container = styled.div`
   z-index: 2;
 `;
 const SubContainer = styled.div`
-  width: 70%;
+  width: 1000px;
   height: 100%;
   display: flex;
 `;
