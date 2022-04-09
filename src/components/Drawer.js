@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   position: absolute;
@@ -30,9 +31,17 @@ const Item = styled.div`
   font-size: 12px;
   font-weight: 700;
   color: #fff;
+  cursor: pointer;
 `;
 
 const Drawer = ({ hovered }) => {
+  const navigate = useNavigate();
+
+  const goToBlank = () => {
+    // 빈 페이지로 이동
+    navigate("/blank");
+  };
+
   const items = Array(hovered)
     .fill("")
     .concat(["⋅\u00A0\u00A0스피드 개인전", "⋅\u00A0\u00A0스피드 팀전"]);
@@ -41,7 +50,9 @@ const Drawer = ({ hovered }) => {
       <SubContainer>
         <Items>
           {items.map((item, index) => (
-            <Item key={index}>{item}</Item>
+            <Item key={index} onClick={goToBlank}>
+              {item}
+            </Item>
           ))}
         </Items>
       </SubContainer>
