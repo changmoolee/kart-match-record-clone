@@ -92,6 +92,7 @@ const Header = ({ setNickname }) => {
   // mouse가 떠났을 때 Drawer off하기
 
   return (
+    // wrapper가 더 맞는 이름 같은데..
     <Outer>
       <Util>
         <Inner>

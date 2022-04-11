@@ -63,10 +63,10 @@ const Main = ({ data, updateData }) => {
   };
 
   document.addEventListener("mousewheel", (e) => {
-    if (e.deltaY < 0 && window.scrollY > 1000) {
+    if (e.deltaY < 0 && window.scrollY > 1000) { // 1000이 뭔소리지? 매직넘버 가틈..
       setShowScrollToTop(true);
     } // 어느정도 위치가 아래로 내려왔음과 동시에 스크롤이 위로 올라가는게 감지될 떄 버튼 구현
-    if (e.deltaY > 30) {
+    if (e.deltaY > 30) { // 30은 뭔소리지?
       setShowScrollToTop(false);
     } // 아래로 내려가는게 감지될 시 버튼 소멸
     if (window.scrollY < 1000) {

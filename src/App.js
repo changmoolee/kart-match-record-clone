@@ -41,6 +41,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header setNickname={setNickname} />
+        {/* 3항연산자가 중첩되어서 보기가 힘드네.. */}
         {isFetching || matchDataIsFetching ? (
           <>
             <Loading />
@@ -59,13 +60,14 @@ function App() {
             </BlankDesc>
           </BlankMain>
         ) : matchDataIsSuccess ? (
+          // BrowserRouter는 Routes만 감싸도 되지 않을까? 굳이 위의 Header.. loading.. 등등 필요없는 녀석들을 감쌀 필요가 있을까? 흠
           <Routes>
             <Route
               path="/"
               element={<Main data={matchData} updateData={refetch} />}
             />
             <Route
-              path="/*"
+              path="/*" // 그냥 * 해도 될꺼 같음
               element={
                 <BlankMain>
                   <BlankDesc>
