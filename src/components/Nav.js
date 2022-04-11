@@ -137,12 +137,10 @@ const Nav = ({ setHovered, openDrawer, closeDrawer, setNickname }) => {
 
   const onChangeInput = (event) => {
     setInputValue(event.target.value);
-    // console.log(inputValue);
   };
 
   const searchData = () => {
     setNickname(inputValue);
-    // console.log("clicked");
   };
 
   const onKeyUp = (e) => {

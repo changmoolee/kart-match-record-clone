@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useGetDatasQuery, useGetMatchDatasQuery } from "./services/api";
+import { useGetUserQuery } from "./services/user";
+import { useGetMatchlistQuery } from "./services/user";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
@@ -22,46 +23,42 @@ function App() {
   const [nickname, setNickname] = useState("BBEESSTT");
 
   const { data, error, isLoading, isFetching, refetch } =
-    useGetDatasQuery(nickname);
-
-  // console.log(data);
+    useGetUserQuery(nickname);
 
   const {
-    data: matchData,
-    error: matchDataError,
-    isLoading: matchDataIsLoading,
-    isFetching: matchDataIsFetching,
-    isSuccess: matchDataIsSuccess,
-  } = useGetMatchDatasQuery(data?.accessId);
-
-  // console.log(matchData);
+    data: matchlist,
+    error: matchlistError,
+    isLoading: matchlistIsLoading,
+    isFetching: matchlistIsFetching,
+    isSuccess: matchlistIsSuccess,
+  } = useGetMatchlistQuery(data?.accessId);
 
   return (
     <div className="App">
       <BrowserRouter>
         <Header setNickname={setNickname} />
-        {isFetching || matchDataIsFetching ? (
+        {isFetching || matchlistIsFetching ? (
           <>
             <Loading />
             <BlankMain />
           </>
-        ) : isLoading || matchDataIsLoading ? (
+        ) : isLoading || matchlistIsLoading ? (
           <>
             <Loading />
             <BlankMain />
           </>
-        ) : error || matchDataError ? (
+        ) : error || matchlistError ? (
           <BlankMain>
             <BlankDesc>
               <h2>에러가 발생했습니다!</h2>
               <h2>불편을 드려 죄송합니다.</h2>
             </BlankDesc>
           </BlankMain>
-        ) : matchDataIsSuccess ? (
+        ) : matchlistIsSuccess ? (
           <Routes>
             <Route
               path="/"
-              element={<Main data={matchData} updateData={refetch} />}
+              element={<Main data={matchlist} updateData={refetch} />}
             />
             <Route
               path="/*"
