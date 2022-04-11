@@ -54,7 +54,6 @@ const Rank = ({ data }) => {
   rankDatas = rankDatas.map((rankdata) =>
     rankdata === "" || rankdata === "99" ? "8" : rankdata
   );
-  // console.log(rankDatas);
 
   const canvasRef = useRef(null);
   const contextRef = useRef(null);

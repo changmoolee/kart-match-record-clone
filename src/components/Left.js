@@ -171,7 +171,6 @@ const Left = () => {
     let standard = 1.36;
     dummyRecord.push((standard + 0.06 * i).toFixed(2));
   }
-  // console.log(dummyRecord);
 
   const canvasRef = useRef(null);
   const contextRef = useRef(null);

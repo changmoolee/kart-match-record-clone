@@ -28,15 +28,11 @@ const LastData = styled.div`
 const Target = styled.div``;
 
 const Right = ({ data, isTeam, isRetire }) => {
-  // console.log(isTeam);
-  // console.log(isExceptRetire);
 
   const matchDatas = data.matches?.[0].matches;
   const [isLoading, setIsLoading] = useState(false);
   const [matchDatasPiece, setMatchDatas] = useState(matchDatas.slice(0, 10));
 
-  // console.log(matchDatas.length);
-  console.log(matchDatasPiece.length);
 
   const getMoreData = () => {
     if (
@@ -50,7 +46,6 @@ const Right = ({ data, isTeam, isRetire }) => {
           matchDatasPiece.concat(matchDatas.slice(num, num + 10))
         );
         setIsLoading(false);
-        console.log("get more data!");
       }, 500);
     }
   };
@@ -60,7 +55,6 @@ const Right = ({ data, isTeam, isRetire }) => {
 
   const filteringData = (matchData) => {
     let matchName = gameType.filter((e) => e.id === matchData.matchType);
-    // console.log(matchName[0].name.slice(-3));
     if (isTeam) {
       if (matchName[0].name.slice(-3) === "개인전") {
         return null;

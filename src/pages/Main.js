@@ -63,7 +63,6 @@ const Main = ({ data, updateData }) => {
   };
 
   document.addEventListener("mousewheel", (e) => {
-    // console.log(e.deltaY); 스크롤 양
     if (e.deltaY < 0 && window.scrollY > 1000) {
       setShowScrollToTop(true);
     } // 어느정도 위치가 아래로 내려왔음과 동시에 스크롤이 위로 올라가는게 감지될 떄 버튼 구현
@@ -73,7 +72,6 @@ const Main = ({ data, updateData }) => {
     if (window.scrollY < 1000) {
       setShowScrollToTop(false);
     } // 위쪽 부분에 머무를 시 버튼 소멸
-    // console.log(window.scrollY); 현 스크롤 위치
   });
 
   return (
