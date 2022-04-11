@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { useGetPlayerDatasMutation } from "../services/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { ko } from "date-fns/locale";
 import { convertTrackId, convertKart, convertRecord } from "./convert";
+import SkeletonUI from "./SkeletonUI";
 
 const MatchBox = styled.section`
   display: flex;
@@ -159,43 +160,7 @@ const DetailTime = styled.div`
   background: ${({ myAccountNo, accountNo }) =>
     myAccountNo === accountNo ? "#f2f2f2" : "white"};
 `;
-const animation = keyframes` 
-    0% {
-        background: rgba(165, 165, 165, 0.1);
-    }
 
-    50% {
-      background: rgba(165, 165, 165, 0.3);
-    }
-
-    100% {
-      background: rgba(165, 165, 165, 0.1);
-    }
-`;
-
-const LoadingDetails = styled.section`
-  width: 100%;
-  height: 175px;
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-`;
-const LoadingDetail = styled.div`
-  width: 73px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-const LoadingDetailRank = styled.div`
-  width: 100%;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: ${animation};
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-`;
 const MatchDetail = ({ matchData }) => {
   const [detailOpen, setDetailOpen] = useState(false);
   const [players, setPlayers] = useState({});
@@ -243,18 +208,7 @@ const MatchDetail = ({ matchData }) => {
       </Match>
       {detailOpen ? (
         isLoading ? (
-          <LoadingDetails>
-            {Array(9)
-              .fill("")
-              .map((_, index) => (
-                <LoadingDetail key={index}>
-                  <LoadingDetailRank />
-                  <DetailKart />
-                  <DetailNick />
-                  <DetailTime />
-                </LoadingDetail>
-              ))}
-          </LoadingDetails>
+          <SkeletonUI />
         ) : (
           <Details>
             <Detail>
