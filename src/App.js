@@ -12,6 +12,7 @@ const BlankMain = styled.div`
 `;
 
 function App() {
+  window.scrollTo(0, 0);
   const [nickname, setNickname] = useState("BBEESSTT");
 
   const { data, error, isLoading, isFetching, refetch } =

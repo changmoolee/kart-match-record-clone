@@ -119,12 +119,18 @@ const Nav = ({ setHovered, openDrawer, closeDrawer, setNickname }) => {
 
   const onChangeInput = (event) => {
     setInputValue(event.target.value);
-    console.log(inputValue);
+    // console.log(inputValue);
   };
 
-  const searchData = async () => {
+  const searchData = () => {
     setNickname(inputValue);
-    console.log("clicked");
+    // console.log("clicked");
+  };
+
+  const onKeyUp = (e) => {
+    if (e.key === "Enter") {
+      searchData();
+    }
   };
 
   return (
@@ -150,6 +156,7 @@ const Nav = ({ setHovered, openDrawer, closeDrawer, setNickname }) => {
             placeholder="닉네임 검색"
             value={inputValue}
             onChange={onChangeInput}
+            onKeyUp={(e) => onKeyUp(e)}
           />
           <IconContainer onClick={searchData}>
             <FontAwesomeIcon icon={faMagnifyingGlass} />

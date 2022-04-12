@@ -8,7 +8,7 @@ const Container = styled.div`
   flex-direction: column;
   padding: 12px;
   background: white;
-  z-index: 2;
+  z-index: 3;
 `;
 const OthersHeading = styled.div`
   height: 31px;
