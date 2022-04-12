@@ -141,9 +141,9 @@ const Button = styled.div`
   cursor: pointer;
 `;
 const data = [
-  { name: "탱크", contents: "보이스스스" },
-  { name: "오이", contents: "나는 오이!" },
-  { name: "바나나", contents: "바부부" },
+  { name: "닉네임1", contents: "안녕하세요!" },
+  { name: "닉네임2", contents: "반갑습니다." },
+  { name: "닉네임3", contents: "좋은 경기 부탁드립니다." },
 ];
 
 const Cheering = () => {

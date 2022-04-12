@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useGetDatasQuery, useGetMatchDatasQuery } from "./services/api";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -8,7 +9,12 @@ import Main from "./pages/Main";
 
 const BlankMain = styled.div`
   width: 100%;
-  height: 800px;
+  height: 1000px;
+  display: flex;
+  justify-content: center;
+`;
+const BlankDesc = styled.div`
+  margin-top: 300px;
 `;
 
 function App() {
@@ -32,29 +38,55 @@ function App() {
 
   return (
     <div className="App">
-      <Header setNickname={setNickname} />
-      {isFetching || matchDataIsFetching ? (
-        <>
-          <Loading />
+      <BrowserRouter>
+        <Header setNickname={setNickname} />
+        {isFetching || matchDataIsFetching ? (
+          <>
+            <Loading />
+            <BlankMain />
+          </>
+        ) : isLoading || matchDataIsLoading ? (
+          <>
+            <Loading />
+            <BlankMain />
+          </>
+        ) : error || matchDataError ? (
           <BlankMain>
-            <h2>...Fetching</h2>
+            <BlankDesc>
+              <h2>에러가 발생했습니다!</h2>
+              <h2>불편을 드려 죄송합니다.</h2>
+            </BlankDesc>
           </BlankMain>
-        </>
-      ) : isLoading || matchDataIsLoading ? (
-        <>
-          <Loading />
-          <BlankMain>
-            <h2>...Loading</h2>
-          </BlankMain>
-        </>
-      ) : error || matchDataError ? (
-        <BlankMain>
-          <h2>sth wrong</h2>
-        </BlankMain>
-      ) : matchDataIsSuccess ? (
-        <Main data={matchData} updateData={refetch} />
-      ) : null}
-      <Footer />
+        ) : matchDataIsSuccess ? (
+          <Routes>
+            <Route
+              path="/"
+              element={<Main data={matchData} updateData={refetch} />}
+            />
+            <Route
+              path="/*"
+              element={
+                <BlankMain>
+                  <BlankDesc>
+                    <h2>잘못된 경로입니다.</h2>
+                  </BlankDesc>
+                </BlankMain>
+              }
+            />
+            <Route
+              path="/blank"
+              element={
+                <BlankMain>
+                  <BlankDesc>
+                    <h2>서비스 되지 않습니다.</h2>
+                  </BlankDesc>
+                </BlankMain>
+              }
+            />
+          </Routes>
+        ) : null}
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 }

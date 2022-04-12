@@ -334,7 +334,7 @@ const Left = () => {
               <Radio
                 type="radio"
                 name="track"
-                Checked={radioChecked === index}
+                checked={radioChecked === index}
                 onClick={() => onClickRadio(index)}
               />
               <Track>

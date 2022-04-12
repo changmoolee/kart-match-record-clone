@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
@@ -100,8 +101,25 @@ const Nav = ({ setHovered, openDrawer, closeDrawer, setNickname }) => {
   const [inputValue, setInputValue] = useState("");
   // input의 value를 저장하는 state
 
+  const navigate = useNavigate();
+
+  const goToMain = () => {
+    navigate("/");
+  };
+  const goToBlankPage = () => {
+    navigate("/blank");
+  };
+
   const onClickItem = (index) => {
     setClicked(index);
+
+    if (index === 0) {
+      // home을 누르면 mainpage로 이동
+      goToMain();
+    } else {
+      // 나머지는 빈 페이지로 이동
+      goToBlankPage();
+    }
   };
 
   const onMouseEnter = (index) => {

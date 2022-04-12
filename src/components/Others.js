@@ -28,12 +28,13 @@ const OthersGame = styled.div`
   padding: 2px 10px;
   margin-bottom: 5px;
 `;
-const KartRider = styled.div`
-  display: flex;
+const KartRider = styled.a`
   width: 100%;
+  display: flex;
   align-items: center;
   font-size: 12px;
   font-weight: 400;
+  text-decoration: none;
   letter-spacing: -1px;
   color: black;
   cursor: pointer;
@@ -56,7 +57,7 @@ const Others = () => {
         &nbsp;에서 다른 게임을 보고 싶다면?
       </OthersHeading>
       <OthersGame>
-        <KartRider>
+        <KartRider href="https://kart.nexon.com/Main/Index.aspx">
           <GameImage
             src="https://rs.nxfs.nexon.com/gameusr/19/3/uZCK25141939117.png"
             alt="kartRider"
