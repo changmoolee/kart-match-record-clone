@@ -18,8 +18,10 @@ const BlankDesc = styled.div`
   margin-top: 300px;
 `;
 
+const DEFAULT_NICKNAME = "BBEESSTT";
+
 function App() {
-  const [nickname, setNickname] = useState("BBEESSTT");
+  const [nickname, setNickname] = useState(DEFAULT_NICKNAME);
 
   const { data, error, isLoading, isFetching, refetch } =
     useGetUserQuery(nickname);

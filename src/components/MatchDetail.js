@@ -7,6 +7,11 @@ import { ko } from "date-fns/locale";
 import MatchDetailContent from "./MatchDetailContent";
 import { convertTrackId, convertKart, convertRecord } from "./convert";
 
+const RETIRE_STATUS_MATCH_RANKS = ["0", "99", ""];
+const RETIRE_COLOR = "#f62459";
+const WINNDER_COLOR = "#0277ff";
+const NORMAL_COLOR = "#8893a2";
+
 const MatchBox = styled.section`
   display: flex;
   flex-direction: column;
@@ -19,14 +24,14 @@ const Match = styled.div`
   grid-template-columns: 65px 150px 150px 150px 100px 40px;
   margin-bottom: 5px;
   border-left: ${({ rank }) =>
-    rank === "" || rank === "99"
-      ? "4px solid #f62459"
+    RETIRE_STATUS_MATCH_RANKS.includes(rank)
+      ? `4px solid ${RETIRE_COLOR}`
       : rank === "1"
-      ? "4px solid #07f"
-      : "4px solid #8893a2"};
+      ? "4px solid #0277ff"
+      : `4px solid ${NORMAL_COLOR}`};
   color: "#1f334a";
   background: ${({ rank }) =>
-    rank === "" || rank === "99"
+    RETIRE_STATUS_MATCH_RANKS.includes(rank)
       ? "#fbf0f2"
       : rank === "1"
       ? "#eff3fb"
@@ -47,13 +52,17 @@ const Result = styled.span`
   font-weight: 700;
   font-style: italic;
   color: ${({ rank }) =>
-    rank === "" || rank === "99"
-      ? "#f62459"
+    RETIRE_STATUS_MATCH_RANKS.includes(rank)
+      ? `${RETIRE_COLOR}`
       : rank === "1"
-      ? "#07f"
+      ? `${WINNDER_COLOR}`
       : "#1f334a"};
   opacity: ${({ rank }) =>
-    rank === "" || rank === "99" ? "1" : rank === "1" ? "1" : "0.5"};
+    RETIRE_STATUS_MATCH_RANKS.includes(rank)
+      ? "1"
+      : rank === "1"
+      ? "1"
+      : "0.5"};
   box-sizing: border-box;
 `;
 const ResultTotal = styled.span`
@@ -87,11 +96,11 @@ const Open = styled.span`
   cursor: pointer;
   :hover {
     background: ${({ rank }) =>
-      rank === "" || rank === "99"
-        ? "#f62459"
+      RETIRE_STATUS_MATCH_RANKS.includes(rank)
+        ? `${RETIRE_COLOR}`
         : rank === "1"
-        ? "#07f"
-        : "#1f334a"};
+        ? `${WINNDER_COLOR}`
+        : `${NORMAL_COLOR}`};
   }
 `;
 
@@ -102,6 +111,7 @@ const MatchDetail = ({ matchData }) => {
     setDetailOpen((detailOpen) => !detailOpen);
   };
 
+  console.log(matchData.player.matchRank);
   return matchData === null ? null : (
     <MatchBox>
       <Match rank={matchData.player.matchRank}>
@@ -110,8 +120,7 @@ const MatchDetail = ({ matchData }) => {
             " 전"}
         </Type>
         <Result rank={matchData.player.matchRank}>
-          {matchData.player.matchRank === "" ||
-          matchData.player.matchRank === "99" ? (
+          {RETIRE_STATUS_MATCH_RANKS.includes(matchData.player.matchRank) ? (
             "#리타이어"
           ) : (
             <>
@@ -127,102 +136,7 @@ const MatchDetail = ({ matchData }) => {
           <FontAwesomeIcon icon={faCaretDown} />
         </Open>
       </Match>
-      {detailOpen ? (
-        <MatchDetailContent matchData={matchData} />
-      ) : // <Details>
-      //   <Detail>
-      //     <DetailRank>#</DetailRank>
-      //     <DetailKart>카트</DetailKart>
-      //     <DetailNick>유저</DetailNick>
-      //     <DetailTime>기록</DetailTime>
-      //   </Detail>
-      //   {players.players === undefined
-      //     ? players.teams?.map((team) =>
-      //         team?.players.map((member) => (
-      //           <Detail
-      //             key={member.accountNo}
-      //             myAccountNo={matchData.accountNo}
-      //             accountNo={member.accountNo}
-      //           >
-      //             <DetailRank
-      //               myAccountNo={matchData.accountNo}
-      //               accountNo={member.accountNo}
-      //               matchRank={member.matchRank}
-      //             >
-      //               {member.matchRank === "99" || member.matchRank === "0"
-      //                 ? "리타이어 "
-      //                 : member.matchRank}
-      //             </DetailRank>
-      //             <DetailKart
-      //               myAccountNo={matchData.accountNo}
-      //               accountNo={member.accountNo}
-      //             >
-      //               <DetailKartImage
-      //                 src={`https://s3-ap-northeast-1.amazonaws.com/solution-userstats/metadata/kart/${member.kart}.png?v=1648453384`}
-      //                 onError={(e) => {
-      //                   e.target.src =
-      //                     "https://tmi.nexon.com/img/assets/empty_kart.png";
-      //                 }}
-      //               />
-      //             </DetailKart>
-      //             <DetailNick
-      //               myAccountNo={matchData.accountNo}
-      //               accountNo={member.accountNo}
-      //             >
-      //               {member.characterName}
-      //             </DetailNick>
-      //             <DetailTime
-      //               myAccountNo={matchData.accountNo}
-      //               accountNo={member.accountNo}
-      //             >
-      //               {convertRecord(member.matchTime)}
-      //             </DetailTime>
-      //           </Detail>
-      //         ))
-      //       )
-      //     : players.players?.map((player) => (
-      //         <Detail
-      //           key={player.accountNo}
-      //           myAccountNo={matchData.accountNo}
-      //           accountNo={player.accountNo}
-      //         >
-      //           <DetailRank
-      //             myAccountNo={matchData.accountNo}
-      //             accountNo={player.accountNo}
-      //             matchRank={player.matchRank}
-      //           >
-      //             {player.matchRank === "99" || player.matchRank === "0"
-      //               ? "리타이어 "
-      //               : player.matchRank}
-      //           </DetailRank>
-      //           <DetailKart
-      //             myAccountNo={matchData.accountNo}
-      //             accountNo={player.accountNo}
-      //           >
-      //             <DetailKartImage
-      //               src={`https://s3-ap-northeast-1.amazonaws.com/solution-userstats/metadata/kart/${player.kart}.png?v=1648453384`}
-      //               onError={(e) =>
-      //                 (e.target.src =
-      //                   "https://tmi.nexon.com/img/assets/empty_kart.png")
-      //               }
-      //             />
-      //           </DetailKart>
-      //           <DetailNick
-      //             myAccountNo={matchData.accountNo}
-      //             accountNo={player.accountNo}
-      //           >
-      //             {player.characterName}
-      //           </DetailNick>
-      //           <DetailTime
-      //             myAccountNo={matchData.accountNo}
-      //             accountNo={player.accountNo}
-      //           >
-      //             {convertRecord(player.matchTime)}
-      //           </DetailTime>
-      //         </Detail>
-      //       ))}
-      // </Details>
-      null}
+      {detailOpen ? <MatchDetailContent matchData={matchData} /> : null}
     </MatchBox>
   );
 };

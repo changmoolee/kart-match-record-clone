@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
+const KART_NAV_OPEN_DRAWER = 2;
+const TRACK_NAV_OPEN_DRAWER = 3;
+
 const Container = styled.div`
   width: 100%;
   height: 55px;
@@ -123,11 +126,11 @@ const Nav = ({ setHovered, openDrawer, closeDrawer, setNickname }) => {
   };
 
   const onMouseEnter = (index) => {
-    if (index === 2) {
-      setHovered(2);
+    if (index === KART_NAV_OPEN_DRAWER) {
+      setHovered(KART_NAV_OPEN_DRAWER);
       openDrawer();
-    } else if (index === 3) {
-      setHovered(3);
+    } else if (index === TRACK_NAV_OPEN_DRAWER) {
+      setHovered(TRACK_NAV_OPEN_DRAWER);
       openDrawer();
     } else {
       setHovered(null);

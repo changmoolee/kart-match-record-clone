@@ -5,6 +5,8 @@ import gameType from "../data/gameType.json";
 import Loading from "./Loading";
 import useInfiniteScroll from "../hooks/InfiniteScroll";
 
+const RETIRE_STATUS_MATCH_RANKS = ["0", "99", ""];
+
 const Container = styled.section`
   width: 660px;
   padding: 40px 0;
@@ -59,8 +61,7 @@ const Right = ({ data, isTeam, isRetire }) => {
       } else {
         if (
           isRetire &&
-          (matchData.player.matchRank === "" ||
-            matchData.player.matchRank === "99")
+          RETIRE_STATUS_MATCH_RANKS.includes(matchData.player.matchRank)
         ) {
           return null;
         } else {
@@ -71,8 +72,7 @@ const Right = ({ data, isTeam, isRetire }) => {
       if (matchName[0].name.slice(-3) === "개인전") {
         if (
           isRetire &&
-          (matchData.player.matchRank === "" ||
-            matchData.player.matchRank === "99")
+          RETIRE_STATUS_MATCH_RANKS.includes(matchData.player.matchRank)
         ) {
           return null;
         } else {

@@ -4,6 +4,13 @@ import { useGetMatchQuery } from "../services/match";
 import SkeletonUI from "./SkeletonUI";
 import { convertRecord } from "./convert";
 
+const RETIRE_STATUS_MATCH_RANKS = ["0", "99", ""];
+const WINNDER_FONT_COLOR = "#0277ff";
+const RETIRE_FONT_COLOR = "red";
+const NORMAL_FONT_COLOR = "black";
+const MY_TOP_BACKGROUND_COLOR = "#e5ecf6";
+const OTHERS_BACKGROUND_COLOR = "#f2f2f2";
+
 const Details = styled.section`
   width: 100%;
   height: 175px;
@@ -27,13 +34,15 @@ const DetailRank = styled.div`
   justify-content: center;
   align-items: center;
   color: ${({ matchRank }) =>
-    matchRank === "99" || matchRank === "0"
-      ? "red"
+    RETIRE_STATUS_MATCH_RANKS.includes(matchRank)
+      ? `${RETIRE_FONT_COLOR}`
       : matchRank === "1"
-      ? "#0277ff"
-      : "black"};
+      ? `${WINNDER_FONT_COLOR}`
+      : `${NORMAL_FONT_COLOR}`};
   background: ${({ myAccountNo, accountNo, matchRank }) =>
-    (matchRank === "1") & (myAccountNo === accountNo) ? "#e5ecf6" : "#f2f2f2"};
+    (matchRank === "1") & (myAccountNo === accountNo)
+      ? `${MY_TOP_BACKGROUND_COLOR}`
+      : `${OTHERS_BACKGROUND_COLOR}`};
 `;
 
 const DetailKart = styled.div`
@@ -43,7 +52,7 @@ const DetailKart = styled.div`
   justify-content: center;
   align-items: center;
   background: ${({ myAccountNo, accountNo }) =>
-    myAccountNo === accountNo ? "#f2f2f2" : "white"};
+    myAccountNo === accountNo ? `${OTHERS_BACKGROUND_COLOR}` : "white"};
 `;
 const DetailKartImage = styled.img`
   width: 80%;
@@ -57,7 +66,7 @@ const DetailNick = styled.div`
   justify-content: center;
   align-items: center;
   background: ${({ myAccountNo, accountNo }) =>
-    myAccountNo === accountNo ? "#f2f2f2" : "white"};
+    myAccountNo === accountNo ? `${OTHERS_BACKGROUND_COLOR}` : "white"};
 `;
 const DetailTime = styled.div`
   width: 100%;
@@ -66,7 +75,7 @@ const DetailTime = styled.div`
   justify-content: center;
   align-items: center;
   background: ${({ myAccountNo, accountNo }) =>
-    myAccountNo === accountNo ? "#f2f2f2" : "white"};
+    myAccountNo === accountNo ? `${OTHERS_BACKGROUND_COLOR}` : "white"};
 `;
 
 const MatchDetailContent = ({ matchData }) => {
@@ -95,7 +104,7 @@ const MatchDetailContent = ({ matchData }) => {
                   accountNo={member.accountNo}
                   matchRank={member.matchRank}
                 >
-                  {member.matchRank === "99" || member.matchRank === "0"
+                  {RETIRE_STATUS_MATCH_RANKS.includes(member.matchRank)
                     ? "리타이어 "
                     : member.matchRank}
                 </DetailRank>
@@ -137,7 +146,7 @@ const MatchDetailContent = ({ matchData }) => {
                 accountNo={player.accountNo}
                 matchRank={player.matchRank}
               >
-                {player.matchRank === "99" || player.matchRank === "0"
+                {RETIRE_STATUS_MATCH_RANKS.includes(player.matchRank)
                   ? "리타이어 "
                   : player.matchRank}
               </DetailRank>

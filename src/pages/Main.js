@@ -51,6 +51,11 @@ const ScrollToTop = styled.div`
   z-index: 10;
 `;
 
+const reference_scroll_amount = 0;
+// 스크롤양 0을 기준으로 합니다.
+const reference_scrollY = 500;
+// 스크롤 수직 위치(window.scrollY) 500을 기준으로 합니다.
+
 const Main = ({ data, updateData }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -59,7 +64,7 @@ const Main = ({ data, updateData }) => {
   const [isTeam, setIsTeam] = useState(false);
   // 개인전인지 팀전인지 여부
   const [isRetire, setIsRetire] = useState(false);
-  // info/right 내 리타이어 정보들을 노출시킬 것인지 아닌지의 state
+  // info/right 내 리타이어 정보들을 필터링 시킬 것인지 아닌지의 state
   const [showScrollToTop, setShowScrollToTop] = useState(false);
 
   const clickToTop = () => {
@@ -67,15 +72,18 @@ const Main = ({ data, updateData }) => {
   };
 
   document.addEventListener("mousewheel", (e) => {
-    if (e.deltaY < 0 && window.scrollY > 1000) {
+    if (
+      e.deltaY < reference_scroll_amount &&
+      window.scrollY > reference_scrollY
+    ) {
       setShowScrollToTop(true);
-    } // 어느정도 위치가 아래로 내려왔음과 동시에 스크롤이 위로 올라가는게 감지될 떄 버튼 구현
-    if (e.deltaY > 0) {
+    } // scrollY의 위치가 기준 아래로 내려왔음과 동시에 스크롤이 위로 올라가는게 감지될 떄 버튼 구현
+    if (e.deltaY > reference_scroll_amount) {
       setShowScrollToTop(false);
     } // 아래로 내려가는게 감지될 시 버튼 소멸
-    if (window.scrollY < 500) {
+    if (window.scrollY < reference_scrollY) {
       setShowScrollToTop(false);
-    } // 위쪽 부분에 머무를 시 버튼 소멸
+    } // scrollY의 위치가 기준에 머무를 시 버튼 소멸
   });
 
   return (
