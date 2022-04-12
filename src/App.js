@@ -51,9 +51,7 @@ function App() {
           <h2>sth wrong</h2>
         </BlankMain>
       ) : matchDataIsSuccess ? (
-        <Main
-        // data={matchData} updateData={refetch}
-        />
+        <Main data={matchData} updateData={refetch} />
       ) : null}
       <Footer />
     </div>
