@@ -111,7 +111,6 @@ const MatchDetail = ({ matchData }) => {
     setDetailOpen((detailOpen) => !detailOpen);
   };
 
-  console.log(matchData.player.matchRank);
   return matchData === null ? null : (
     <MatchBox>
       <Match rank={matchData.player.matchRank}>

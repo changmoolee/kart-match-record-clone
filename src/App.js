@@ -77,6 +77,7 @@ function App() {
                 <BlankMain>
                   <BlankDesc>
                     <h2>서비스 되지 않습니다.</h2>
+                    <h2>홈을 클릭해주세요!</h2>
                   </BlankDesc>
                 </BlankMain>
               }
