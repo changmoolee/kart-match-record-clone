@@ -42,11 +42,20 @@ const ChartBox = styled.div`
   padding: 12px;
 `;
 const Chart = styled.canvas`
-  width: 300px;
-  height: 180px;
+  width: 100%;
+  height: 100%;
 `;
 
 const Rank = ({ data }) => {
+  let matchDatas = data.matches[0].matches;
+
+  let rankDatas = [];
+  matchDatas.map((matchData) => rankDatas.push(matchData.player.matchRank));
+  rankDatas = rankDatas.map((rankdata) =>
+    rankdata === "" || rankdata === "99" ? "8" : rankdata
+  );
+  // console.log(rankDatas);
+
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
 
@@ -55,8 +64,62 @@ const Rank = ({ data }) => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
+    canvas.width = 300;
+    canvas.height = 180;
+
+    // 표 y축 눈금선 그리기
     context.strokeStyle = "black";
-    context.lineWidth = 2.5;
+    context.lineWidth = 0.2;
+    context.beginPath();
+    context.moveTo(15, 20);
+    context.lineTo(15, 160);
+    context.stroke();
+    context.closePath();
+
+    // 표 x축 눈금선 그리기
+    for (let i = 1; i < 9; i++) {
+      context.strokeStyle = "black";
+      context.lineWidth = 0.2;
+      context.beginPath();
+      context.moveTo(10, 20 * i);
+      context.lineTo(300, 20 * i);
+      context.stroke();
+      context.closePath();
+    }
+
+    // 표 눈금 숫자 그리기
+    for (let i = 1; i < 9; i++) {
+      context.font = "12px Noto Sans KR";
+      context.fillText(i, 0, 20 * i + 5);
+    }
+
+    // 선 그래프 작성
+    context.strokeStyle = "#2877ff";
+    context.lineWidth = 1;
+    context.beginPath();
+    for (let i = 0; i < 50; i++) {
+      context.moveTo(15 + (285 / 50) * i, 20 * rankDatas[i]);
+      context.lineTo(15 + (285 / 50) * (i + 1), 20 * rankDatas[i + 1]);
+    }
+    context.stroke();
+    context.closePath();
+
+    // 그래프 포인트 작성
+    for (let i = 0; i < 50; i++) {
+      context.fillStyle = "#2877ff";
+      context.beginPath();
+      context.arc(
+        15 + (285 / 50) * i,
+        20 * rankDatas[i],
+        3,
+        0,
+        (Math.PI / 180) * 360,
+        true
+      );
+      context.fill();
+      context.closePath();
+    }
+
     contextRef.current = context;
 
     setCtx(contextRef.current);
@@ -69,8 +132,19 @@ const Rank = ({ data }) => {
           <Blue>순위 변동</Blue> <Black>추이</Black>
         </Title>
         <Total>
-          지난 200경기 &nbsp;<Blue>2.81위</Blue> &nbsp; 최근 50경기 &nbsp;
-          <Blue>3.00위</Blue>
+          지난 100경기 &nbsp;
+          <Blue>
+            {rankDatas.reduce((acc, cur) => Number(acc) + Number(cur)) / 100 +
+              "위"}
+          </Blue>
+          &nbsp; 최근 50경기 &nbsp;
+          <Blue>
+            {rankDatas
+              .slice(0, 50)
+              .reduce((acc, cur) => Number(acc) + Number(cur)) /
+              50 +
+              "위"}
+          </Blue>
         </Total>
       </Heading>
       <ChartBox>

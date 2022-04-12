@@ -18,10 +18,11 @@ const Matches = styled.div`
 
 const LastData = styled.div`
   width: 100%;
-  height: 50px;
+  height: 200px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  padding-top: 50px;
+  box-sizing: border-box;
 `;
 
 const Target = styled.div``;
@@ -34,18 +35,27 @@ const Right = ({ data, isTeam, isRetire }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [matchDatasPiece, setMatchDatas] = useState(matchDatas.slice(0, 10));
 
-  const getMoreData = async () => {
-    setIsLoading(true);
-    let num = matchDatasPiece.length;
-    await setTimeout(() => {
-      setMatchDatas((matchDatasPiece) =>
-        matchDatasPiece.concat(matchDatas.slice(num, num + 10))
-      );
-      setIsLoading(false);
-      console.log("get more data!");
-    }, 500);
+  // console.log(matchDatas.length);
+  console.log(matchDatasPiece.length);
+
+  const getMoreData = () => {
+    if (
+      matchDatasPiece.filter((matchData) => filteringData(matchData) !== null)
+        .length !== 0
+    ) {
+      setIsLoading(true);
+      let num = matchDatasPiece.length;
+      setTimeout(() => {
+        setMatchDatas((matchDatasPiece) =>
+          matchDatasPiece.concat(matchDatas.slice(num, num + 10))
+        );
+        setIsLoading(false);
+        console.log("get more data!");
+      }, 500);
+    }
   };
-  const target = useInfiniteScroll(getMoreData, matchDatasPiece);
+
+  const target = useInfiniteScroll(getMoreData, matchDatasPiece, matchDatas);
   // 무한스크롤
 
   const filteringData = (matchData) => {
@@ -97,16 +107,14 @@ const Right = ({ data, isTeam, isRetire }) => {
         <LastData>
           {matchDatasPiece.filter(
             (matchData) => filteringData(matchData) !== null
-          ).length === 100
-            ? "최근 100개 데이터입니다."
-            : matchDatasPiece.filter(
-                (matchData) => filteringData(matchData) !== null
-              ).length === 0
+          ).length === 0 // 필터링 후 전부 null값이라면
             ? "데이터가 없습니다."
-            : `마지막 데이터입니다.`}
+            : !isLoading // 로딩이 안걸린다면 마지막 데이터
+            ? `마지막 데이터입니다.`
+            : null}
         </LastData>
       </Matches>
-      <Target ref={target}></Target>
+      <Target ref={target} />
     </Container>
   );
 };
