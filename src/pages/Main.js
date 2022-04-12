@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
@@ -52,6 +52,10 @@ const ScrollToTop = styled.div`
 `;
 
 const Main = ({ data, updateData }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [isTeam, setIsTeam] = useState(false);
   // 개인전인지 팀전인지 여부
   const [isRetire, setIsRetire] = useState(false);
@@ -66,10 +70,10 @@ const Main = ({ data, updateData }) => {
     if (e.deltaY < 0 && window.scrollY > 1000) {
       setShowScrollToTop(true);
     } // 어느정도 위치가 아래로 내려왔음과 동시에 스크롤이 위로 올라가는게 감지될 떄 버튼 구현
-    if (e.deltaY > 30) {
+    if (e.deltaY > 0) {
       setShowScrollToTop(false);
     } // 아래로 내려가는게 감지될 시 버튼 소멸
-    if (window.scrollY < 1000) {
+    if (window.scrollY < 500) {
       setShowScrollToTop(false);
     } // 위쪽 부분에 머무를 시 버튼 소멸
   });

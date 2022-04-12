@@ -19,7 +19,6 @@ const BlankDesc = styled.div`
 `;
 
 function App() {
-  window.scrollTo(0, 0);
   const [nickname, setNickname] = useState("BBEESSTT");
 
   const { data, error, isLoading, isFetching, refetch } =
@@ -61,7 +60,7 @@ function App() {
               element={<Main data={matchlist} updateData={refetch} />}
             />
             <Route
-              path="/*"
+              path="*"
               element={
                 <BlankMain>
                   <BlankDesc>
