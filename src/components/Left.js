@@ -328,12 +328,12 @@ const Left = () => {
           <Th>상위</Th>
         </Thead>
         <Tbody>
-          {dummyTrackRecord.map((track, index) => (
+          {dummyTrackRecord.map((_, index) => (
             <Tr key={index}>
               <Radio
                 type="radio"
                 name="track"
-                checked={radioChecked === index}
+                defaultChecked={radioChecked === index}
                 onClick={() => onClickRadio(index)}
               />
               <Track>
