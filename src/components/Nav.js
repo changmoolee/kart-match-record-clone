@@ -93,18 +93,11 @@ const IconContainer = styled.div`
   cursor: pointer;
 `;
 
-const Nav = ({
-  setHovered,
-  openDrawer,
-  closeDrawer,
-  searchData,
-  setIsLoading,
-  setUserData,
-}) => {
+const Nav = ({ setHovered, openDrawer, closeDrawer, setNickname }) => {
   const items = ["홈", "랭킹", "카트", "트랙"];
   const [clicked, setClicked] = useState(null);
   // 클릭한 아이템의 index를 저장하는 state
-  const [nickname, setNickname] = useState("");
+  const [inputValue, setInputValue] = useState("");
   // input의 value를 저장하는 state
 
   const onClickItem = (index) => {
@@ -125,8 +118,13 @@ const Nav = ({
   };
 
   const onChangeInput = (event) => {
-    setNickname(event.target.value);
-    console.log(nickname);
+    setInputValue(event.target.value);
+    console.log(inputValue);
+  };
+
+  const searchData = async () => {
+    setNickname(inputValue);
+    console.log("clicked");
   };
 
   return (
@@ -150,10 +148,10 @@ const Nav = ({
         <SearchContainer>
           <Search
             placeholder="닉네임 검색"
-            value={nickname}
+            value={inputValue}
             onChange={onChangeInput}
           />
-          <IconContainer onClick={() => searchData(nickname)}>
+          <IconContainer onClick={searchData}>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </IconContainer>
         </SearchContainer>
