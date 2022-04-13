@@ -115,7 +115,7 @@ const RunMode = styled.span`
   color: #1f334a;
 `;
 const Record = ({ data }) => {
-  const degrees = [35, 91, 67];
+  const dummyPercent = [35, 91, 67];
 
   const convertToDeg = (percent) => {
     let degree = percent * 3.6;
@@ -134,9 +134,9 @@ const Record = ({ data }) => {
         <WinRate>
           <span>승률</span>
           <CircleBox>
-            <OuterCircle color="#0277ff" degree={convertToDeg(degrees[0])}>
+            <OuterCircle color="#0277ff" degree={convertToDeg(dummyPercent[0])}>
               <InnerCircle>
-                <Percent color="#0277ff">{degrees[0]}%</Percent>
+                <Percent color="#0277ff">{dummyPercent[0]}%</Percent>
               </InnerCircle>
             </OuterCircle>
           </CircleBox>
@@ -144,9 +144,9 @@ const Record = ({ data }) => {
         <FinishRate>
           <span>완주율</span>
           <CircleBox>
-            <OuterCircle color="#9bd728" degree={convertToDeg(degrees[1])}>
+            <OuterCircle color="#9bd728" degree={convertToDeg(dummyPercent[1])}>
               <InnerCircle>
-                <Percent color="#9bd728">{degrees[1]}%</Percent>
+                <Percent color="#9bd728">{dummyPercent[1]}%</Percent>
               </InnerCircle>
             </OuterCircle>
           </CircleBox>
@@ -154,9 +154,9 @@ const Record = ({ data }) => {
         <RetireRate>
           <span>리타이어율</span>
           <CircleBox>
-            <OuterCircle color="#f62559" degree={convertToDeg(degrees[2])}>
+            <OuterCircle color="#f62559" degree={convertToDeg(dummyPercent[2])}>
               <InnerCircle>
-                <Percent color="#f62559">{degrees[2]}%</Percent>
+                <Percent color="#f62559">{dummyPercent[2]}%</Percent>
               </InnerCircle>
             </OuterCircle>
           </CircleBox>

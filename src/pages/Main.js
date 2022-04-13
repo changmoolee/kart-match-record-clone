@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
@@ -51,30 +51,45 @@ const ScrollToTop = styled.div`
   z-index: 10;
 `;
 
+const reference_scroll_amount = 0;
+// 스크롤양 0을 기준으로 합니다.
+const reference_scrollY = 1000;
+// 스크롤 수직 위치(window.scrollY) 1000을 기준으로 합니다.
+
 const Main = ({ data, updateData }) => {
   const [isTeam, setIsTeam] = useState(false);
   // 개인전인지 팀전인지 여부
   const [isRetire, setIsRetire] = useState(false);
-  // info/right 내 리타이어 정보들을 노출시킬 것인지 아닌지의 state
+  // info/right 내 리타이어 정보들을 필터링 시킬 것인지 아닌지의 state
   const [showScrollToTop, setShowScrollToTop] = useState(false);
 
   const clickToTop = () => {
     window.scrollTo(0, 0);
   };
+  console.log("??");
 
-  document.addEventListener("mousewheel", (e) => {
-    // console.log(e.deltaY); 스크롤 양
-    if (e.deltaY < 0 && window.scrollY > 1000) {
-      setShowScrollToTop(true);
-    } // 어느정도 위치가 아래로 내려왔음과 동시에 스크롤이 위로 올라가는게 감지될 떄 버튼 구현
-    if (e.deltaY > 30) {
-      setShowScrollToTop(false);
-    } // 아래로 내려가는게 감지될 시 버튼 소멸
-    if (window.scrollY < 1000) {
-      setShowScrollToTop(false);
-    } // 위쪽 부분에 머무를 시 버튼 소멸
-    // console.log(window.scrollY); 현 스크롤 위치
-  });
+  useEffect(() => {
+    let mounted = true;
+    window.scrollTo(0, 0);
+    document.addEventListener("mousewheel", (e) => {
+      if (mounted) {
+        if (
+          e.deltaY < reference_scroll_amount &&
+          window.scrollY > reference_scrollY
+        ) {
+          setShowScrollToTop(true);
+        } // scrollY의 위치가 기준 아래로 내려왔음과 동시에 스크롤이 위로 올라가는게 감지될 떄 버튼 구현
+        else {
+          setShowScrollToTop(false);
+        }
+        // 스크롤이 아래로 내려가는게 감지될 시 버튼 소멸
+        // scrollY의 위치가 상부에 머무를 시 버튼 소멸
+      }
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   return (
     <Outer>

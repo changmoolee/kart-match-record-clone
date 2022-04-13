@@ -5,6 +5,8 @@ import gameType from "../data/gameType.json";
 import Loading from "./Loading";
 import useInfiniteScroll from "../hooks/InfiniteScroll";
 
+const RETIRE_STATUS_MATCH_RANKS = ["0", "99", ""];
+
 const Container = styled.section`
   width: 660px;
   padding: 40px 0;
@@ -28,15 +30,9 @@ const LastData = styled.div`
 const Target = styled.div``;
 
 const Right = ({ data, isTeam, isRetire }) => {
-  // console.log(isTeam);
-  // console.log(isExceptRetire);
-
   const matchDatas = data.matches?.[0].matches;
   const [isLoading, setIsLoading] = useState(false);
   const [matchDatasPiece, setMatchDatas] = useState(matchDatas.slice(0, 10));
-
-  // console.log(matchDatas.length);
-  console.log(matchDatasPiece.length);
 
   const getMoreData = () => {
     if (
@@ -50,7 +46,6 @@ const Right = ({ data, isTeam, isRetire }) => {
           matchDatasPiece.concat(matchDatas.slice(num, num + 10))
         );
         setIsLoading(false);
-        console.log("get more data!");
       }, 500);
     }
   };
@@ -60,15 +55,13 @@ const Right = ({ data, isTeam, isRetire }) => {
 
   const filteringData = (matchData) => {
     let matchName = gameType.filter((e) => e.id === matchData.matchType);
-    // console.log(matchName[0].name.slice(-3));
     if (isTeam) {
       if (matchName[0].name.slice(-3) === "개인전") {
         return null;
       } else {
         if (
           isRetire &&
-          (matchData.player.matchRank === "" ||
-            matchData.player.matchRank === "99")
+          RETIRE_STATUS_MATCH_RANKS.includes(matchData.player.matchRank)
         ) {
           return null;
         } else {
@@ -79,8 +72,7 @@ const Right = ({ data, isTeam, isRetire }) => {
       if (matchName[0].name.slice(-3) === "개인전") {
         if (
           isRetire &&
-          (matchData.player.matchRank === "" ||
-            matchData.player.matchRank === "99")
+          RETIRE_STATUS_MATCH_RANKS.includes(matchData.player.matchRank)
         ) {
           return null;
         } else {

@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const datasApi = createApi({
-  reducerPath: "datasApi",
+export const userApi = createApi({
+  reducerPath: "user",
   baseQuery: fetchBaseQuery({
     baseUrl:
       "https://joseph-proxy.herokuapp.com/https://api.nexon.co.kr/kart/v1.0",
@@ -11,23 +11,13 @@ export const datasApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getDatas: builder.query({
+    getUser: builder.query({
       query: (nickname) => `/users/nickname/${nickname}`,
     }),
-    getMatchDatas: builder.query({
-      query: (access_Id) => `/users/${access_Id}/matches?limit=100`,
-    }),
-    getPlayerDatas: builder.mutation({
-      query: (match_Id) => ({
-        url: `/matches/${match_Id}`,
-        method: "GET",
-      }),
+    getMatchlist: builder.query({
+      query: (accessId) => `/users/${accessId}/matches?limit=100`,
     }),
   }),
 });
 
-export const {
-  useGetDatasQuery,
-  useGetMatchDatasQuery,
-  useGetPlayerDatasMutation,
-} = datasApi;
+export const { useGetUserQuery, useGetMatchlistQuery } = userApi;

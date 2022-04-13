@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import TrackGraph from "./TrackGraph";
 
 const Container = styled.div`
   width: 330px;
@@ -69,15 +70,6 @@ const Title = styled.div`
 const Gray = styled.span`
   color: #a1a1a1;
 `;
-const ChartBox = styled.section`
-  width: 100%;
-  height: 140px;
-  padding: 10px 0;
-`;
-const Chart = styled.canvas`
-  width: 100%;
-  height: 100%;
-`;
 
 const BottomTable = styled.div`
   width: 310px;
@@ -135,6 +127,8 @@ const Td = styled.div`
   color: #1f334a;
   letter-spacing: -1px;
 `;
+const tabs = ["트랙", "카트"];
+const dummyTrackRecord = Array(2).fill("");
 
 const Left = () => {
   const [clicked, setClicked] = useState(0);
@@ -146,144 +140,6 @@ const Left = () => {
   const onClickRadio = (index) => {
     setRadioChecked(index);
   };
-
-  const tabs = ["트랙", "카트"];
-
-  const dummyTrackRecord = Array(2).fill("");
-
-  const dummyData = [
-    "0.01",
-    "0.4",
-    "1.64",
-    "3.3",
-    "3.49",
-    "3.93",
-    "4.7",
-    "2.54",
-    "1.7",
-    "0.5",
-    "0.03",
-  ];
-
-  const dummyRecord = [];
-
-  for (let i = 0; i < 10; i++) {
-    let standard = 1.36;
-    dummyRecord.push((standard + 0.06 * i).toFixed(2));
-  }
-  // console.log(dummyRecord);
-
-  const canvasRef = useRef(null);
-  const contextRef = useRef(null);
-
-  const [ctx, setCtx] = useState();
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-    canvas.width = 288;
-    canvas.height = 140;
-    // 표 x축 그리기
-    context.strokeStyle = "black";
-    context.lineWidth = 0.5;
-    context.beginPath();
-    context.moveTo(25, 120);
-    context.lineTo(280, 120);
-    context.stroke();
-    context.closePath();
-
-    // 표 y축 그리기
-    context.strokeStyle = "black";
-    context.lineWidth = 0.5;
-    context.beginPath();
-    context.moveTo(25, 20);
-    context.lineTo(25, 120);
-    context.stroke();
-    context.closePath();
-
-    // 표 세로 눈금선 그리기
-    for (let i = 1; i < 11; i++) {
-      context.strokeStyle = "black";
-      context.lineWidth = 1;
-      context.globalAlpha = 0.1;
-      context.beginPath();
-      context.moveTo(25 + 25 * i, 20);
-      context.lineTo(25 + 25 * i, 120);
-      context.stroke();
-      context.closePath();
-    }
-
-    // 표 가로 눈금선 그리기
-    for (let i = 0; i < 6; i++) {
-      context.strokeStyle = "black";
-      context.lineWidth = 1;
-      context.beginPath();
-      context.moveTo(25, 120 - 20 * i);
-      context.lineTo(280, 120 - 20 * i);
-      context.stroke();
-      context.closePath();
-    }
-
-    // 표 세로 눈금 숫자 그리기
-    for (let i = 0; i < 6; i++) {
-      context.globalAlpha = 1;
-      context.font = "12px Noto Sans KR";
-      context.fillText(i, 5, 125 - 20 * i);
-    }
-
-    // 표 가로 눈금 숫자 그리기
-    for (let i = 0; i < 10; i++) {
-      context.save();
-      context.font = "10px Noto Sans KR";
-      context.translate(15 + 25 * i, 135);
-      context.rotate((Math.PI / 180) * 330);
-      context.translate(-15 - 25 * i, -135);
-      context.fillText(dummyRecord[i], 15 + 25 * i, 140);
-      context.restore();
-    }
-
-    // 선 그래프 배경색
-    context.fillStyle = "#2877ff";
-    context.globalAlpha = 0.1;
-    context.beginPath();
-    context.moveTo(25, 120 - 20 * dummyData[0]);
-    for (let i = 1; i < 11; i++) {
-      context.lineTo(25 + 25 * i, 120 - 20 * dummyData[i]);
-    }
-    context.fill();
-    context.closePath();
-
-    // 선 그래프 작성
-    context.strokeStyle = "#2877ff";
-    context.globalAlpha = 1;
-    context.lineWidth = 1;
-    context.beginPath();
-    context.moveTo(25, 120 - 20 * dummyData[0]);
-    for (let i = 1; i < 11; i++) {
-      context.lineTo(25 + 25 * i, 120 - 20 * dummyData[i]);
-    }
-    context.stroke();
-    context.closePath();
-
-    // 그래프 포인트 작성
-    for (let i = 0; i < 50; i++) {
-      context.fillStyle = "#2877ff";
-      context.beginPath();
-      context.arc(
-        25 + (275 / 11) * i,
-        120 - 20 * dummyData[i],
-        2.5,
-        0,
-        Math.PI * 2,
-        true
-      );
-      context.stroke();
-    }
-
-    contextRef.current = context;
-
-    setCtx(contextRef.current);
-  }, []);
 
   return (
     <Container>
@@ -314,9 +170,7 @@ const Left = () => {
           <Title>
             브로디 비밀의 연구소&nbsp;<Gray>기록분포</Gray>
           </Title>
-          <ChartBox>
-            <Chart ref={canvasRef} />
-          </ChartBox>
+          <TrackGraph />
         </Graph>
       </TopTable>
       <BottomTable>
@@ -329,12 +183,12 @@ const Left = () => {
           <Th>상위</Th>
         </Thead>
         <Tbody>
-          {dummyTrackRecord.map((track, index) => (
+          {dummyTrackRecord.map((_, index) => (
             <Tr key={index}>
               <Radio
                 type="radio"
                 name="track"
-                checked={radioChecked === index}
+                defaultChecked={radioChecked === index}
                 onClick={() => onClickRadio(index)}
               />
               <Track>

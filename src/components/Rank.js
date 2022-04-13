@@ -1,5 +1,8 @@
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
+import RankGraph from "./RankGraph";
+
+const RETIRE_STATUS_MATCH_RANKS = ["0", "99", ""];
 
 const Container = styled.section`
   width: 350px;
@@ -36,15 +39,6 @@ const Total = styled.div`
   color: #1f334a;
   letter-spacing: -1px;
 `;
-const ChartBox = styled.div`
-  width: 300px;
-  height: 180px;
-  padding: 12px;
-`;
-const Chart = styled.canvas`
-  width: 100%;
-  height: 100%;
-`;
 
 const Rank = ({ data }) => {
   let matchDatas = data.matches[0].matches;
@@ -52,78 +46,8 @@ const Rank = ({ data }) => {
   let rankDatas = [];
   matchDatas.map((matchData) => rankDatas.push(matchData.player.matchRank));
   rankDatas = rankDatas.map((rankdata) =>
-    rankdata === "" || rankdata === "99" ? "8" : rankdata
+    RETIRE_STATUS_MATCH_RANKS.includes(rankdata) ? "8" : rankdata
   );
-  // console.log(rankDatas);
-
-  const canvasRef = useRef(null);
-  const contextRef = useRef(null);
-
-  const [ctx, setCtx] = useState();
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-    canvas.width = 300;
-    canvas.height = 180;
-
-    // 표 y축 눈금선 그리기
-    context.strokeStyle = "black";
-    context.lineWidth = 0.2;
-    context.beginPath();
-    context.moveTo(15, 20);
-    context.lineTo(15, 160);
-    context.stroke();
-    context.closePath();
-
-    // 표 x축 눈금선 그리기
-    for (let i = 1; i < 9; i++) {
-      context.strokeStyle = "black";
-      context.lineWidth = 0.2;
-      context.beginPath();
-      context.moveTo(10, 20 * i);
-      context.lineTo(300, 20 * i);
-      context.stroke();
-      context.closePath();
-    }
-
-    // 표 눈금 숫자 그리기
-    for (let i = 1; i < 9; i++) {
-      context.font = "12px Noto Sans KR";
-      context.fillText(i, 0, 20 * i + 5);
-    }
-
-    // 선 그래프 작성
-    context.strokeStyle = "#2877ff";
-    context.lineWidth = 1;
-    context.beginPath();
-    for (let i = 0; i < 50; i++) {
-      context.moveTo(15 + (285 / 50) * i, 20 * rankDatas[i]);
-      context.lineTo(15 + (285 / 50) * (i + 1), 20 * rankDatas[i + 1]);
-    }
-    context.stroke();
-    context.closePath();
-
-    // 그래프 포인트 작성
-    for (let i = 0; i < 50; i++) {
-      context.fillStyle = "#2877ff";
-      context.beginPath();
-      context.arc(
-        15 + (285 / 50) * i,
-        20 * rankDatas[i],
-        3,
-        0,
-        (Math.PI / 180) * 360,
-        true
-      );
-      context.fill();
-      context.closePath();
-    }
-
-    contextRef.current = context;
-
-    setCtx(contextRef.current);
-  }, []);
 
   return (
     <Container>
@@ -147,9 +71,7 @@ const Rank = ({ data }) => {
           </Blue>
         </Total>
       </Heading>
-      <ChartBox>
-        <Chart ref={canvasRef}></Chart>
-      </ChartBox>
+      <RankGraph rankDatas={rankDatas} />
     </Container>
   );
 };

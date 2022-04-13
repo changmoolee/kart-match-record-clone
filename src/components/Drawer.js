@@ -38,8 +38,8 @@ const Drawer = ({ hovered }) => {
   const navigate = useNavigate();
 
   const goToBlank = () => {
-    // 빈 페이지로 이동
     navigate("/blank");
+    // 서비스 불가 페이지로 이동
   };
 
   const items = Array(hovered)
