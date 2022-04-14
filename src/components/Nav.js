@@ -38,7 +38,10 @@ const Item = styled.div`
   font-weight: ${({ clicked, index }) => (clicked === index ? "700" : null)};
   color: #fff;
   opacity: ${({ clicked, index }) => (clicked === index ? "1" : "0.5")};
-  transition: all 0.15s ease-in-out;
+  transition-property: font-weight, opacity;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-in-out;
+
   :hover {
     border-bottom: 4px solid white;
     font-weight: 700;
@@ -49,7 +52,6 @@ const Text = styled.a`
   margin-bottom: ${({ clicked, index }) => (clicked === index ? "-4px" : null)};
   ${Item}:hover & {
     margin-bottom: -4px;
-    transition: all 0.15s ease-in-out;
   }
 `;
 
@@ -64,7 +66,7 @@ const SearchContainer = styled.div`
   font-size: 12px;
   color: white;
   opacity: 0.5;
-  transition: 0.3s;
+  transition: all 0.15s ease-in-out;
   :hover {
     opacity: 1;
   }

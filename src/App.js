@@ -15,7 +15,9 @@ const BlankMain = styled.div`
   justify-content: center;
 `;
 const BlankDesc = styled.div`
-  margin-top: 300px;
+  margin-top: 200px;
+  font-size: 24px;
+  line-height: 36px;
 `;
 
 const DEFAULT_NICKNAME = "BBEESSTT";
@@ -51,8 +53,8 @@ function App() {
         ) : error || matchlistError ? (
           <BlankMain>
             <BlankDesc>
-              <h2>에러가 발생했습니다!</h2>
-              <h2>불편을 드려 죄송합니다.</h2>
+              에러가 발생했습니다! <br />
+              불편을 드려 죄송합니다.
             </BlankDesc>
           </BlankMain>
         ) : matchlistIsSuccess ? (
@@ -65,9 +67,7 @@ function App() {
               path="*"
               element={
                 <BlankMain>
-                  <BlankDesc>
-                    <h2>잘못된 경로입니다.</h2>
-                  </BlankDesc>
+                  <BlankDesc>잘못된 경로입니다.</BlankDesc>
                 </BlankMain>
               }
             />
@@ -76,8 +76,9 @@ function App() {
               element={
                 <BlankMain>
                   <BlankDesc>
-                    <h2>서비스 되지 않습니다.</h2>
-                    <h2>홈을 클릭해주세요!</h2>
+                    서비스 되지 않습니다.
+                    <br />
+                    '홈'을 클릭해주세요!
                   </BlankDesc>
                 </BlankMain>
               }

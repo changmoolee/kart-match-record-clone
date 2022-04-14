@@ -10,6 +10,7 @@ export const matchApi = createApi({
       return headers;
     },
   }),
+  keepUnusedDataFor: 60,
   endpoints: (builder) => ({
     getMatch: builder.query({
       query: (matchId) => `/matches/${matchId}`,

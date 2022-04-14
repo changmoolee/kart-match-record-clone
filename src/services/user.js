@@ -10,6 +10,7 @@ export const userApi = createApi({
       return headers;
     },
   }),
+  keepUnusedDataFor: 60,
   endpoints: (builder) => ({
     getUser: builder.query({
       query: (nickname) => `/users/nickname/${nickname}`,

@@ -66,7 +66,6 @@ const Main = ({ data, updateData }) => {
   const clickToTop = () => {
     window.scrollTo(0, 0);
   };
-  console.log("??");
 
   useEffect(() => {
     let mounted = true;
