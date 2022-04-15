@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import MatchDetail from "./MatchDetail";
 import gameType from "../data/gameType.json";
@@ -32,7 +32,10 @@ const Target = styled.div``;
 const Right = ({ data, isTeam, isRetire }) => {
   const matchDatas = data.matches?.[0].matches;
   const [isLoading, setIsLoading] = useState(false);
+  // 로딩 상태 값
   const [matchDatasPiece, setMatchDatas] = useState(matchDatas.slice(0, 10));
+  const [isScrollEnd, setIsScrollEnd] = useState(false);
+  // 스크롤 끝을 감지하는 상태값
 
   const getMoreData = () => {
     if (
@@ -84,6 +87,27 @@ const Right = ({ data, isTeam, isRetire }) => {
     }
   };
 
+  useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      window.addEventListener("scroll", () => {
+        let scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
+        let windowHeight = window.innerHeight; // 스크린 창
+        let fullHeight = document.body.scrollHeight; //  margin 값은 포함 x
+
+        if (Math.round(scrollLocation + windowHeight) >= fullHeight) {
+          setIsScrollEnd(true);
+        } else {
+          setIsScrollEnd(false);
+        }
+      });
+    }
+    return () => {
+      mounted = false;
+      setIsScrollEnd(false);
+    };
+  }, []);
+
   return (
     <Container>
       <Matches>
@@ -101,7 +125,10 @@ const Right = ({ data, isTeam, isRetire }) => {
             (matchData) => filteringData(matchData) !== null
           ).length === 0 // 필터링 후 전부 null값이라면
             ? "데이터가 없습니다."
-            : !isLoading // 로딩이 안걸린다면 마지막 데이터
+            : (!isLoading && isScrollEnd) || // 로딩이 안 걸리고 스크롤이 마지막에 위치해있거나,
+              matchDatasPiece.filter(
+                (matchData) => filteringData(matchData) !== null
+              ).length <= 10 // 10개 이하의 데이터만 갖고 있다면
             ? `마지막 데이터입니다.`
             : null}
         </LastData>
