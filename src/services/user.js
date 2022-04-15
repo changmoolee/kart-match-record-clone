@@ -1,5 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+const VALID_CACHE_TIME = 300;
+// 변하지 않는 데이터이고 개별 데이터이기 때문에 캐시 보관 시간이 상대적으로 길어도 상관 없다.
+
 export const userApi = createApi({
   reducerPath: "user",
   baseQuery: fetchBaseQuery({
@@ -10,7 +13,7 @@ export const userApi = createApi({
       return headers;
     },
   }),
-  keepUnusedDataFor: 60,
+  keepUnusedDataFor: VALID_CACHE_TIME,
   endpoints: (builder) => ({
     getUser: builder.query({
       query: (nickname) => `/users/nickname/${nickname}`,
