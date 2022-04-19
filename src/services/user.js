@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const VALID_CACHE_TIME = 300;
 // 변하지 않는 데이터이고 개별 데이터이기 때문에 캐시 보관 시간이 상대적으로 길어도 상관 없다.
+const dataLimit = 300;
 
 export const userApi = createApi({
   reducerPath: "user",
@@ -19,7 +20,7 @@ export const userApi = createApi({
       query: (nickname) => `/users/nickname/${nickname}`,
     }),
     getMatchlist: builder.query({
-      query: (accessId) => `/users/${accessId}/matches?limit=100`,
+      query: (accessId) => `/users/${accessId}/matches?limit=${dataLimit}`,
     }),
   }),
 });
