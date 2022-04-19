@@ -121,12 +121,11 @@ const Right = ({ data, isTeam, isRetire }) => {
         ))}
         {isLoading ? <Loading /> : null}
         <LastData>
-          {matchDatasPiece.filter(
-            (matchData) => filteringData(matchData) !== null
-          ).length === 0 // 필터링 후 전부 null값이라면
+          {matchDatas.filter((matchData) => filteringData(matchData) !== null)
+            .length === 0 // 필터링 후 전부 null값이라면
             ? "데이터가 없습니다."
             : (!isLoading && isScrollEnd) || // 로딩이 안 걸리고 스크롤이 마지막에 위치해있거나,
-              matchDatasPiece.filter(
+              matchDatas.filter(
                 (matchData) => filteringData(matchData) !== null
               ).length <= 10 // 10개 이하의 데이터만 갖고 있다면
             ? `마지막 데이터입니다.`
