@@ -28,3 +28,59 @@ https://developers.nexon.com/kart 에서 가입 및 로그인 후, 마이페이�
 3. 자신의 최근 100경기(매치)의 순위 변동 추이를 그래프로 확인할 수 있습니다.
 4. 자신의 최근 100경기(매치)데이터를 확인할 수 있습니다.
 5. 각 경기(매치)의 toggle을 눌러, 참여 플레이어들의 순위, 카트바디, 유저, 기록를 확인할 수 있습니다.
+
+## 프로젝트 구조
+<pre><code>
+├── node_modules <br>
+├── package.json <br>
+├── package-lock.json <br>
+├── .env <br>
+├── README.md <br>
+├── public <br>
+│   ├── favicon.ico <br>
+│   └── index.html <br>
+└── src <br>
+    ├── App.js <br> 
+    ├── components <br>
+    │   ├── AlertModal.js <br>
+    │   ├── Cheering.js <br>
+    │   ├── convert.js <br>
+    │   ├── Drawer.js <br>
+    │   ├── Footer.js <br>
+    │   ├── Header.js <br>
+    │   ├── Info.js <br>
+    │   ├── Left.js <br>
+    │   ├── Loading.js <br>
+    │   ├── MatchDetail.js <br>
+    │   ├── MatchDetailContent.js <br>
+    │   ├── Nav.js <br>
+    │   ├── Others.js <br>
+    │   ├── Profile.js <br>
+    │   ├── Rank.js <br>
+    │   ├── RankGraph.js <br>
+    │   ├── Record.js <br>
+    │   ├── ReportModal.js <br>
+    │   ├── Right.js <br>
+    │   ├── SkeletonUI.js <br>
+    │   ├── Stats.js <br>
+    │   ├── Tabs.js <br>
+    │   ├── Toggle.js <br>
+    │   ├── TrackGraph.js <br>
+    │   └── VSanimation.js <br>
+    ├── data <br>
+    │   └── gameType.json <br>
+    ├── hooks <br>
+    │   └── InfiniteScroll.js <br>
+    ├── pages <br>
+    │   └── Main.js <br>
+    ├── redux <br>
+    │   └── store.js <br>
+    ├── services <br>
+    │   ├── Match.js <br>
+    │   └── user.js <br>
+    ├── styles <br>
+    │   └── GlobalStyle.js <br>
+    ├── App.js <br>
+    ├── index.js <br>
+    └── reportWebVitals.js <br>
+</code></pre>
