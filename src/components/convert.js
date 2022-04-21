@@ -1,17 +1,12 @@
 import track from "../data/track.json";
+import kart from "../data/kart.json";
 
-export const convertTrackId = (trackId) => {
+export const convertTrack = (trackId) => {
   return track.filter((data) => data.id === trackId)[0].name;
 };
 
-export const convertKart = (kart) => {
-  let converted = "";
-  if (
-    kart === "0b41bf8620b5851d7dcc7eb33765d506e530b8d2e612e6c60823f2b890da3401"
-  ) {
-    converted = "몬스터 X LE";
-  }
-  return converted;
+export const convertKart = (kartId) => {
+  return kart.filter((data) => data.id === kartId)[0].name;
 };
 
 export const convertRecord = (record) => {
