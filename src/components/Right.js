@@ -59,7 +59,10 @@ const Right = ({ data, isTeam, isRetire }) => {
   const filteringData = (matchData) => {
     let matchName = gameType.filter((e) => e.id === matchData.matchType);
     if (isTeam) {
-      if (matchName[0].name.slice(-3) === "개인전") {
+      if (
+        matchName[0].name.slice(-3) === "개인전" ||
+        matchName[0].name.slice(-3) === " 모드"
+      ) {
         return null;
       } else {
         if (
@@ -72,7 +75,10 @@ const Right = ({ data, isTeam, isRetire }) => {
         }
       }
     } else {
-      if (matchName[0].name.slice(-3) === "개인전") {
+      if (
+        matchName[0].name.slice(-3) === "개인전" ||
+        matchName[0].name.slice(-3) === " 모드"
+      ) {
         if (
           isRetire &&
           RETIRE_STATUS_MATCH_RANKS.includes(matchData.player.matchRank)

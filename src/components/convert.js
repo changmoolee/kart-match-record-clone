@@ -2,11 +2,13 @@ import track from "../data/track.json";
 import kart from "../data/kart.json";
 
 export const convertTrack = (trackId) => {
-  return track.filter((data) => data.id === trackId)[0].name;
+  let convertedData = track.filter((data) => data.id === trackId)[0];
+  return convertedData.name;
 };
 
 export const convertKart = (kartId) => {
-  return kart.filter((data) => data.id === kartId)[0].name;
+  let convertedData = kart.filter((data) => data.id === kartId)[0];
+  return convertedData.name;
 };
 
 export const convertRecord = (record) => {
