@@ -5,7 +5,7 @@ import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { ko } from "date-fns/locale";
 import MatchDetailContent from "./MatchDetailContent";
-import { convertTrackId, convertKart, convertRecord } from "./convert";
+import { convertTrack, convertKart, convertRecord } from "./convert";
 
 const RETIRE_STATUS_MATCH_RANKS = ["0", "99", ""];
 const RETIRE_COLOR = "#f62459";
@@ -128,7 +128,7 @@ const MatchDetail = ({ matchData }) => {
             </>
           )}
         </Result>
-        <Track>{convertTrackId(matchData.trackId)}</Track>
+        <Track>{convertTrack(matchData.trackId)}</Track>
         <Kart>{convertKart(matchData.player.kart)}</Kart>
         <Time>{convertRecord(matchData.player.matchTime)}</Time>
         <Open rank={matchData.player.matchRank} onClick={() => handleDetail()}>
