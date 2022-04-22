@@ -17,4 +17,11 @@
 6. npm start 명령어를 입력하여 실행합니다.
    npm start
 
-**Git url : https://github.com/changmoolee/kart-match-record-clone **
+** Git url : https://github.com/changmoolee/kart-match-record-clone **
+clone: 카트라이더 매치 기록 검색사이트
+
+### 작성자 배포 url
+https://kart-match-record-clone.netlify.app/
+
+### 원본 url(클론 대상)
+https://tmi.nexon.com/kart/user?nick=BBEESSTT&matchType=indi
