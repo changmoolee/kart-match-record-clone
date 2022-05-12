@@ -84,3 +84,34 @@ https://developers.nexon.com/kart 에서 가입 및 로그인 후, 마이페이�
     ├── index.js <br>
     └── reportWebVitals.js <br>
 </code></pre>
+
+## 기능 소개
+### Drawer 구현
+1. Tap Drawer
+![hoverDrawer](https://user-images.githubusercontent.com/84559872/167997154-76275312-ac4f-446c-9dfb-d7cac68e0964.gif)
+tap hover 유무에 따른 Drawer를 구현했습니다.<br>
+2. Toggle Drawer
+![matchdrawer](https://user-images.githubusercontent.com/84559872/167997506-8f09fee7-f20f-4d3b-97e9-1696907501d0.gif)
+Toggle on/off에 따른 Drawer를 구현했습니다.<br>
+### Modal(신고 모달) 구현
+![Modal](https://user-images.githubusercontent.com/84559872/167997062-e293c6ae-a7ef-48c1-b39c-b3061293c7b6.gif)
+신고 버튼 클릭 시, Modal이 구현됩니다.<br>
+### 애니메이션 구현
+![애니메이션](https://user-images.githubusercontent.com/84559872/167997086-53555483-e759-40dc-a8cb-87804168f267.gif)
+지속적으로 animation이 갱신됩니다.<br>
+### Toggle에 따른 데이터 필터링
+![toggle](https://user-images.githubusercontent.com/84559872/167997204-98a4955e-eb11-4770-9acb-29944a335c4c.gif)
+Toggle on/off에 따라 데이터가 필터링 되도록 하였습니다.<br>
+### 무한스크롤 기능
+![무한스크롤](https://user-images.githubusercontent.com/84559872/167997237-a1d718ef-7654-46a3-bf4f-c577718b737b.gif)
+무한스크롤을 구현하여 뷰포트에 따라 요소들이 갱신되도록 하였습니다.<br>
+### Loading 기능
+![Loading](https://user-images.githubusercontent.com/84559872/167997268-b9aab0b8-2c73-4475-9d7b-85ac341302e5.gif
+api 콜 완료 유무에 따라 Loading 창이 구현되도록 하였습니다.<br>
+### ScrollToTop 기능!
+![scrollToTop](https://user-images.githubusercontent.com/84559872/167997429-891e709e-bbb0-41ff-88e2-282998846d85.gif)
+스크롤 위치가 아래에 위치하면, scrollToTop 버튼이 구현됩니다.<br> 버튼을 클릭 시 스크롤 맨 위로 이동합니다.<br>
+
+
+
+
