@@ -106,7 +106,7 @@ Toggle on/off에 따라 데이터가 필터링 되도록 하였습니다.<br>
 ![무한스크롤](https://user-images.githubusercontent.com/84559872/167997237-a1d718ef-7654-46a3-bf4f-c577718b737b.gif)
 무한스크롤을 구현하여 뷰포트에 따라 요소들이 갱신되도록 하였습니다.<br>
 ### Loading 기능
-![Loading](https://user-images.githubusercontent.com/84559872/167997268-b9aab0b8-2c73-4475-9d7b-85ac341302e5.gif
+![Loading](https://user-images.githubusercontent.com/84559872/167997268-b9aab0b8-2c73-4475-9d7b-85ac341302e5.gif)
 api 콜 완료 유무에 따라 Loading 창이 구현되도록 하였습니다.<br>
 ### ScrollToTop 기능!
 ![scrollToTop](https://user-images.githubusercontent.com/84559872/167997429-891e709e-bbb0-41ff-88e2-282998846d85.gif)
