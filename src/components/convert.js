@@ -3,12 +3,12 @@ import kart from "../data/kart.json";
 
 export const convertTrack = (trackId) => {
   let convertedData = track.filter((data) => data.id === trackId)[0];
-  return convertedData.name;
+  return convertedData && convertedData.name;
 };
 
 export const convertKart = (kartId) => {
   let convertedData = kart.filter((data) => data.id === kartId)[0];
-  return convertedData.name;
+  return convertedData && convertedData.name;
 };
 
 export const convertRecord = (record) => {
